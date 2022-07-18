@@ -15,3 +15,13 @@ export async function signup(data: userRepository.UserInsertData) {
     }
     await userRepository.insert(userData);
 }
+
+export async function login(data: userRepository.UserInsertData) {
+    const { email, password } = data;
+    const user = await userRepository.getEmail(email);
+    if (!user) throw new Error("Email not found");
+    const isValid = await bcrypt.compare(password, user.password);
+    if (!isValid) throw new Error("Invalid password");
+    //TODO: retonar token de autenticação via JWT
+    return user;
+}

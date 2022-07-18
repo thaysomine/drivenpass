@@ -8,3 +8,9 @@ export async function signup(req: Request, res: Response) {
     await userService.signup(data);
     res.sendStatus(201);
 }
+
+export async function login(req: Request, res: Response) {
+    const data : userRepository.UserInsertData = req.body;
+    const user = await userService.login(data);
+    res.json(user);
+}
