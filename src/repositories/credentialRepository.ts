@@ -10,7 +10,6 @@ export async function insert(credentialData: credentialInsertData, userId: User[
 }
 
 export async function getTitleByUserId(userId: User["id"], title: Credential["title"]) {
-    console.log(userId, title);
     const credential = await client.credential.findFirst({
         where: {
             userId,

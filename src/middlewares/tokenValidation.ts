@@ -7,7 +7,6 @@ export async function  tokenValidation(req: Request, res: Response, next: NextFu
     if (!token) return res.sendStatus(401);
 
     const userData = await validateToken(token);
-    console.log(userData);
     if (!userData) return res.sendStatus(401);
     res.locals.userData = userData;
     next();

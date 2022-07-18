@@ -7,7 +7,6 @@ export async function createNote(req: Request, res: Response) {
     const data: noteRepository.noteInsertData = req.body;
     const userId = res.locals.userData.id;
     await notesService.createNote(data, userId);
-    console.log(data);
     res.sendStatus(201);
 }
 

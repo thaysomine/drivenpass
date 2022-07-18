@@ -5,7 +5,6 @@ import * as credentialRepository from "../repositories/credentialRepository.js";
 export async function createCredential(data: credentialRepository.credentialInsertData, userId: number) {
     const { password, title } = data;
     const checkTitle = await credentialRepository.getTitleByUserId(userId, title);
-    console.log(checkTitle);
     if (checkTitle) throw new Error("Title already exists");
 
     const cryptr = new Cryptr("myTotallySecretKey");
@@ -21,8 +20,9 @@ export async function createCredential(data: credentialRepository.credentialInse
 export async function getCredentials(userId: number) {
     const credentialData = await credentialRepository.getCredentials(userId);
     const cryptr = new Cryptr("myTotallySecretKey");
-    return credentialData.map(({ title, url, username, password }) => {
+    return credentialData.map(({ id, title, url, username, password }) => {
         return {
+            id,
             title,
             url,
             username,
@@ -37,6 +37,7 @@ export async function getCredentialById(id: number, userId: number) {
     const cryptr = new Cryptr("myTotallySecretKey");
     const passwordDecrypted = cryptr.decrypt(credentialData.password);
     return {
+        id: credentialData.id,
         title: credentialData.title,
         url: credentialData.url,
         username: credentialData.username,

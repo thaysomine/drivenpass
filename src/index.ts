@@ -15,7 +15,6 @@ app.use(cors());
 app.use(routes);
 app.use(errorHandler);
 
-// TODO: this is a temporary solution to get the app to work
 async function main() {
     await client.$connect();
     console.log('Connected to the database');

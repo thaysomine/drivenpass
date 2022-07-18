@@ -10,7 +10,6 @@ export async function insert(cardData: cardInsertData, userId: User["id"]) {
 }
 
 export async function getTitleByUserId(userId: User["id"], title: Card["title"]) {
-    console.log(userId, title);
     const card = await client.card.findFirst({
         where: {
             userId,

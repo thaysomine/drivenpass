@@ -9,8 +9,9 @@ export async function createNote(data: noteRepository.noteInsertData, userId: nu
 
 export async function getNotes(userId: number) {
     const noteData = await noteRepository.getNotes(userId);
-    return noteData.map(({ title, content }) => {
+    return noteData.map(({ id, title, content }) => {
         return {
+            id,
             title,
             content
         }
@@ -21,6 +22,7 @@ export async function getNoteById(id: number, userId: number) {
     const noteData = await noteRepository.getNoteById(id, userId);
     if (!noteData) throw new Error("Note not found");
     return {
+        id: noteData.id,
         title: noteData.title,
         content: noteData.content
     }

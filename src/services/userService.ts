@@ -9,7 +9,6 @@ export async function signup(data: userRepository.UserInsertData) {
     if (checkEmail) throw new Error("Email already exists");
 
     const hash = await bcrypt.hash(password, 10);
-    console.log(hash);
     const userData = {
         email,
         password: hash

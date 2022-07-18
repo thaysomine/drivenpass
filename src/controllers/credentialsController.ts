@@ -6,9 +6,7 @@ import * as credentialsService from '../services/credentialsService.js';
 export async function createCredential(req: Request, res: Response) {
     const data: credentialRepository.credentialInsertData = req.body;
     const userId = res.locals.userData.id;
-    console.log(userId, "userId");
     await credentialsService.createCredential(data, userId);
-    console.log(data);
     res.sendStatus(201);
 }
 

@@ -7,7 +7,6 @@ export async function createCard(req: Request, res: Response) {
     const data: cardRepository.cardInsertData = req.body;
     const userId = res.locals.userData.id;
     await cardService.createCard(data, userId);
-    console.log(data);
     res.sendStatus(201);
 }
 

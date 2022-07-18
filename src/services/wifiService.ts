@@ -17,8 +17,9 @@ export async function createWifi(data: wifiRepository.wifiInsertData, userId: nu
 export async function getWifis(userId: number) {
     const wifiData = await wifiRepository.getWifis(userId);
     const cryptr = new Cryptr("myTotallySecretKey");
-    return wifiData.map(({ title, password, name }) => {
+    return wifiData.map(({ id, title, password, name }) => {
         return {
+            id,
             title,
             name,
             password: cryptr.decrypt(password)
@@ -32,6 +33,7 @@ export async function getWifiById(id: number, userId: number) {
     const cryptr = new Cryptr("myTotallySecretKey");
     const passwordDecrypted = cryptr.decrypt(wifiData.password);
     return {
+        id: wifiData.id,
         title: wifiData.title,
         name: wifiData.name,
         password: passwordDecrypted

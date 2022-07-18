@@ -7,7 +7,6 @@ export async function createWifi(req: Request, res: Response) {
     const data: wifiRepository.wifiInsertData = req.body;
     const userId = 1;
     await wifiService.createWifi(data, userId);
-    console.log(data);
     res.sendStatus(201);
 }   
 

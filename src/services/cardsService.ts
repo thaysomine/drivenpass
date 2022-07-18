@@ -21,8 +21,9 @@ export async function createCard(data: cardRepository.cardInsertData, userId: nu
 export async function getCards(userId: number) {
     const cardData = await cardRepository.getCards(userId);
     const cryptr = new Cryptr("myTotallySecretKey");
-    return cardData.map(({ title, number, cvv, password, expirationDate, isVirtual, type }) => {
+    return cardData.map(({ id, title, number, cvv, password, expirationDate, isVirtual, type }) => {
         return {
+            id,
             title,
             number,
             cvv: cryptr.decrypt(cvv),
@@ -41,6 +42,7 @@ export async function getCardById(id: number, userId: number) {
     const passwordDecrypted = cryptr.decrypt(cardData.password);
     const cvvDecrypted = cryptr.decrypt(cardData.cvv);
     return {
+        id: cardData.id,
         title: cardData.title,
         number: cardData.number,
         cvv: cvvDecrypted,
