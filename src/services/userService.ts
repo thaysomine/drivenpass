@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 
 import * as userRepository from "../repositories/userRepository.js";
+import { generateToken } from '../utils/jwtUtil.js';
 
 export async function signup(data: userRepository.UserInsertData) {
     const { email, password } = data;
@@ -22,6 +23,5 @@ export async function login(data: userRepository.UserInsertData) {
     if (!user) throw new Error("Email not found");
     const isValid = await bcrypt.compare(password, user.password);
     if (!isValid) throw new Error("Invalid password");
-    //TODO: retonar token de autenticação via JWT
-    return user;
+    return {token: await generateToken({id: user.id, email: user.email})};
 }

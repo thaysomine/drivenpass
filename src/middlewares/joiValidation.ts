@@ -5,6 +5,8 @@ import * as userRepository from '../repositories/userRepository.js';
 import * as credentialRepository from '../repositories/credentialRepository.js';
 import * as noteRepository from '../repositories/noteRepository.js';
 import * as cardRepository from '../repositories/cardRepository.js';
+import * as wifiRepository from '../repositories/wifiRepository.js';
+
 
 export async function validateUser(req: Request, res: Response, next: NextFunction) {
     const data: userRepository.UserInsertData = req.body;
@@ -51,6 +53,18 @@ export async function validateCard(req: Request, res: Response, next: NextFuncti
         expirationDate: joi.string().required(),
         isVirtual: joi.boolean().required(),
         type: joi.string().required()
+    });
+    const { error } = schema.validate(data);
+    if (error) throw new Error(error.message);
+    next();
+}
+
+export async function validateWifi(req: Request, res: Response, next: NextFunction) {
+    const data: wifiRepository.wifiInsertData = req.body;
+    const schema = joi.object({
+        title: joi.string().required(),
+        name: joi.string().required(),
+        password: joi.string().required()
     });
     const { error } = schema.validate(data);
     if (error) throw new Error(error.message);

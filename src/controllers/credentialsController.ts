@@ -5,28 +5,29 @@ import * as credentialsService from '../services/credentialsService.js';
 
 export async function createCredential(req: Request, res: Response) {
     const data: credentialRepository.credentialInsertData = req.body;
-    const userId = 1;
+    const userId = res.locals.userData.id;
+    console.log(userId, "userId");
     await credentialsService.createCredential(data, userId);
     console.log(data);
     res.sendStatus(201);
 }
 
 export async function getCredentials(req: Request, res: Response) {
-    const userId = 1;
+    const userId = res.locals.userData.id;
     const credentials = await credentialsService.getCredentials(userId);
     res.json(credentials);
 }
 
 export async function getCredentialById(req: Request, res: Response) {
     const id = req.params.id;
-    const userId = 1;
+    const userId = res.locals.userData.id;
     const credential = await credentialsService.getCredentialById(parseInt(id), userId);
     res.json(credential);
 }
 
 export async function deleteCredential(req: Request, res: Response) {
     const id = req.params.id;
-    const userId = 1;
+    const userId = res.locals.userData.id;
     await credentialsService.deleteCredential(parseInt(id), userId);
     res.sendStatus(204);
 }

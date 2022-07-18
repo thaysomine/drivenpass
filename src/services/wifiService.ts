@@ -3,9 +3,7 @@ import Cryptr from "cryptr";
 import * as wifiRepository from "../repositories/wifiRepository.js";
 
 export async function createWifi(data: wifiRepository.wifiInsertData, userId: number) {
-    const { title, password } = data;
-    const checkTitle = await wifiRepository.getTitleByUserId(userId, title);
-    if (checkTitle) throw new Error("Title already exists");
+    const { password } = data;
 
     const cryptr = new Cryptr("myTotallySecretKey");
     const hash = cryptr.encrypt(password);

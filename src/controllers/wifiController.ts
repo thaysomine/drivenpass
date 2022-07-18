@@ -12,21 +12,21 @@ export async function createWifi(req: Request, res: Response) {
 }   
 
 export async function getWifis(req: Request, res: Response) {
-    const userId = 1;
+    const userId = res.locals.userData.id;
     const wifis = await wifiService.getWifis(userId);
     res.json(wifis);
 }
 
 export async function getWifiById(req: Request, res: Response) {
     const id = req.params.id;
-    const userId = 1;
+    const userId = res.locals.userData.id;
     const wifi = await wifiService.getWifiById(parseInt(id), userId);
     res.json(wifi);
 }
 
 export async function deleteWifi(req: Request, res: Response) {
     const id = req.params.id;
-    const userId = 1;
+    const userId = res.locals.userData.id;
     await wifiService.deleteWifi(parseInt(id), userId);
     res.sendStatus(204);
 }
