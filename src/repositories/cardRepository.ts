@@ -1,4 +1,4 @@
-import client from "../database";
+import client from "../database/index.js";
 import { Card, User } from "@prisma/client";
 
 export type cardInsertData = Omit<Card, "id" | "createdAt" | "userId">;
